@@ -1,0 +1,19 @@
+{
+  "name": "jsplayer",
+  "version": "1.0.0",
+  "description": "A simple electron application - video player",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "JS",
+    "Node",
+    "Electron"
+  ],
+  "author": "Hazrat Ali",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^4.0.0"
+  }
+}
