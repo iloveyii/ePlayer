@@ -10,12 +10,12 @@ new Vue({
         var api = this.$http;
         console.log(this.getSiteId());
 
-        this.$http.get('http://localhost:8888/index.php?data=urls&site='+this.getSiteId())
+        this.$http.get('http://pct.softhem.se/index.php?data=urls&site='+this.getSiteId())
             .then(function (response) {
                 this.urls = response.data;
                 this.urls = this.urls.map(function (url, index) {
                     url.status = 2;
-                    api.get('http://localhost:8888/index.php?data=statuses&debug=3&site=' + url.id)
+                    api.get('http://pct.softhem.se/index.php?data=statuses&debug=3&site=' + url.id)
                         .then(function (response) {
                             if (response.data) {
                                 var key = Object.keys(response.data);
