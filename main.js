@@ -8,9 +8,9 @@ const url = require('url');
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 800, height:600, icon: __dirname + '/favicon.png'});
+    win = new BrowserWindow({width: 800, height:600, icon: __dirname + '/app/assets/img/favicon.png'});
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'vue.html'),
+        pathname: path.join(__dirname, 'sidebar.html'),
         protocol: 'file',
         slashes: true
     }));
