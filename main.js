@@ -8,7 +8,7 @@ const url = require('url');
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 800, height:600, icon: __dirname + '/app/assets/img/favicon.png'});
+    win = new BrowserWindow({width: 1600, height:1200, icon: __dirname + '/app/assets/img/favicon.png'});
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'sidebar.html'),
         protocol: 'file',

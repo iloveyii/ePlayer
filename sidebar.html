@@ -15,12 +15,15 @@
         <link rel="stylesheet" href="app/assets/css/style5.css">
         <!-- JQuery -->
         <script src="./app/assets/js/jquery.js"></script>
+        <!-- Vue -->
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
     </head>
     <body>
 
 
 
-        <div class="wrapper">
+        <div id="wrapper" class="wrapper">
             <!-- Sidebar Holder -->
             <nav id="sidebar">
                 <div class="sidebar-header">
@@ -63,7 +66,7 @@
             <!-- Page Content Holder -->
             <div id="content">
 
-                <nav class="navbar navbar-default">
+                <nav id="nav" class="navbar navbar-default">
                     <div class="container-fluid">
 
                         <div class="navbar-header">
@@ -76,24 +79,22 @@
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
+                                <li><button type="button" id="tv92" class="btn btn-success"> TV 92</button></li>
+                                <li><button type="button" id="geotaiz" class="btn btn-info" data-target="http://stream.jeem.tv/geo/geotezz/playlist.m3u8"> Geo Taiz</button></li>
+                                <li><button type="button" id="bigbunny" class="btn btn-info" data-target="https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8"> Big Bunny</button></li>
+                                <li><button type="button" id="eye95" class="btn btn-info" data-target="http://cdn20.liveonlineservices.com/hls/eye95tv.m3u8"> Eye 95</button></li>
+                                <li><button type="button" id="expressnews" class="btn btn-info" data-target="http://expressdigital.flashmediacast.com:1935/expressdigital/livestream/playlist.m3u8"> Express News</button></li>
+                                <li><button type="button" id="fourthLeft" class="btn btn-info"> Fourth Left</button></li>
+                                <li><button type="button" id="fourthRight" class="btn btn-info"> Fourth Right</button></li>
+                                <li><button type="button" id="maxVideo" class="btn btn-info"> Max Video</button></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
 
-                <h2>Collapsible Sidebar Using Bootstrap 3</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div class="line"></div>
-
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+                <div style="padding: 0; margin: 0">
+                    <video id="video" autoplay style="width: 100%" controls></video>
+                </div>
                 <div class="line"></div>
 
                 <h2>Lorem Ipsum Dolor</h2>
@@ -105,9 +106,6 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
-
-
-
 
 
         <!-- jQuery CDN -->
@@ -122,7 +120,92 @@
                      $('#sidebar').toggleClass('active');
                      $(this).toggleClass('active');
                  });
+
+
+                 function loadVideo(filePath) {
+                     var video = document.getElementById('video');
+                     if(Hls.isSupported()) {
+                         var hls = new Hls();
+                         hls.loadSource(filePath);
+                         hls.attachMedia(video);
+                         hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                             video.play();
+                         });
+                     }
+                     else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                         video.src = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
+                         video.addEventListener('loadedmetadata',function() {
+                             video.play();
+                         });
+                     }
+                 }
+
+                 $('#tv92').on('click', function (e) {
+                     loadVideo('http://92news.vdn.dstreamone.net/92newshd/92hd/playlist.m3u8');
+                 });
+
+                 $('#bigbunny').on('click', function (e) {
+                     var $target = $(this).data('target');
+                     loadVideo($target);
+                 });
+
+                 $('#eye95').on('click', function (e) {
+                     var $target = $(this).data('target');
+                     loadVideo($target);
+                 });
+
+                 $('#expressnews').on('click', function (e) {
+                     var $target = $(this).data('target');
+                     loadVideo($target);
+                 });
+
+                 $('#geotaiz').on('click', function (e) {
+                     var $target = $(this).data('target');
+                     loadVideo($target);
+                 });
+
+                 $('#fourthLeft').on('click', function (e) {
+                     window.resizeTo(screen.width/2, screen.height/2);
+                     window.moveTo(0, 0);
+
+                 });
+
+                 $('#fourthRight').on('click', function (e) {
+                     // window.resizeTo(screen.width/2, screen.height/2);
+                     window.moveBy(50 , 10);
+                 });
+
+                 $('#maxVideo').on('click', function (e) {
+                     $('#sidebar').toggleClass('inActive');
+                     $('#wrapper').css("padding", "0");
+                     $('#content').css("padding", "0");
+                     $('#wrapper').css("margin", "0");
+                     $('#content').css("margin", "0");
+                     $('#nav').css("display", "none");
+                     var vid = $('#video');
+                     vid.css("width", "100%");
+                 });
              });
          </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+        <script>
+            var video = document.getElementById('video');
+            if(Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource('http://stream.jeem.tv/geo/geotezz/playlist.m3u8');
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED,function() {
+                    video.play();
+                });
+            }
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
+                video.addEventListener('loadedmetadata',function() {
+                    video.play();
+                });
+            }
+        </script>
+
     </body>
 </html>
