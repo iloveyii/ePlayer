@@ -10,7 +10,7 @@ let win;
 function createWindow() {
     win = new BrowserWindow({width: 1600, height:1200, icon: __dirname + '/app/assets/img/favicon.png'});
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'sidebar.html'),
+        pathname: path.join(__dirname, 'max.html'),
         protocol: 'file',
         slashes: true
     }));
