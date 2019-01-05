@@ -12,6 +12,7 @@ class Channel extends Model
     public $category_id;
     public $name;
     public $icon;
+    public $htmlClass;
     public $url;
 
     /**
@@ -38,6 +39,7 @@ class Channel extends Model
         $this->category_id = isset($attributes['category_id']) ? $attributes['category_id'] : null;
         $this->name = $attributes['name'];
         $this->url = $attributes['url'];
+        $this->htmlClass = $attributes['htmlClass'];
         $this->isNewRecord = $this->id === null ? true : false;
         return $this;
     }
@@ -66,6 +68,7 @@ class Channel extends Model
         name varchar( 40 ),
         icon varchar( 200 ),
         url varchar( 200 ),
+        htmlClass varchar( 40 ),
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
         );";
         $result = Database::connect()->exec($createTable);
@@ -82,11 +85,11 @@ class Channel extends Model
      */
     public function create()
     {
-        $query = sprintf("INSERT INTO %s (category_id, name, url) 
-                                 VALUES (null, :name, :url)
+        $query = sprintf("INSERT INTO %s (category_id, name, url, htmlClass) 
+                                 VALUES (null, :name, :url, :htmlClass)
                                  ON DUPLICATE KEY UPDATE name=:name, url=:url
                                  ", $this->tableName);
-        $params = [':name'=>$this->name, ':url'=>$this->url];
+        $params = [':name'=>$this->name, ':url'=>$this->url, ':htmlClass'=>$this->htmlClass];
         return Database::connect()->insert($query, $params);
     }
 
