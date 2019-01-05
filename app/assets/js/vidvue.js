@@ -61,23 +61,7 @@ new Vue({
             console.log('I am starting a video' + $(e.target).data('target'));
             var url = $(e.target).data('target');
             this.playingUrlId = this.channels.findIndex(function(ch) {return ch.url === url});
-            window.playingUrlId = this.playingUrlId;
-            window.url = url;
-            let video = document.getElementById('video');
-            if(Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(url);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                    video.play();
-                });
-            }
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
-                video.addEventListener('loadedmetadata',function() {
-                    video.play();
-                });
-            }
+            this.play(url);
         },
         next : function (command) {
             let arr = command.cmd.split(' ');
@@ -92,14 +76,25 @@ new Vue({
             this.playingUrlId = nextChannelId;
             this.play(channel.url);
             return true;
-
         },
-        pre: function(increment) {
+        pre: function(command) {
+            let arr = command.cmd.split(' ');
+            let increment = arr[1];
             console.log('I am doing pre with increment: ' + increment);
+
+            let currentId = this.playingUrlId !== undefined ? this.playingUrlId : -1;
+            let nextChannelId = Number(currentId) - Number(increment);
+            if(nextChannelId < 0) {
+                nextChannelId = this.channels.length - 1;
+            }
+            let channel = this.channels[nextChannelId];
+            this.playingUrlId = nextChannelId;
+            this.play(channel.url);
+            return true;
         },
         executeCommands: function (commands) {
             var app = this;
-            console.log('I am execting commands: ' , commands);
+            console.log('I am executing commands: ' , commands);
             commands.forEach(function (command) {
                 if(command.cmd.includes('NEXT')) {
                     let status = app.next(command);
@@ -109,8 +104,10 @@ new Vue({
                 }
 
                 if(command.cmd.includes('PRE')) {
-                    let arr = command.cmd.split(' ');
-                    app.pre(arr[1]);
+                    let status = app.pre(command);
+                    if(status === true) {
+                        app.setCommandStatus(command, 0);
+                    }
                 }
             })
         },
