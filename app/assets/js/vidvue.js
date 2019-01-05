@@ -3,13 +3,15 @@ new Vue({
     data: {
         channels: [],
         commands: {},
-        playingUrlId: 0
+        playingUrlId: 0,
+        server: 'http://192.168.1.30'
     },
 
     created: function () {
         var api = this.$http;
+        var app = this;
 
-        this.$http.get('http://localhost:8181/?data=channel')
+        this.$http.get(this.server + '/?data=channel')
             .then(function (response) {
                 this.channels = response.data;
                 let id = this.getId();
@@ -21,7 +23,7 @@ new Vue({
 
         setInterval(function () {
             console.log('I am reading commands from server');
-            api.get('http://localhost:8181/?data=command')
+            api.get(app.server + '?data=command')
                 .then(function (response) {
                     this.commands = response.data;
                     console.log('COMMAND:', this.commands);
@@ -161,7 +163,7 @@ new Vue({
             })
         },
         setCommandStatus: function (command, status) {
-            this.$http.get('http://localhost:8181/?cmdid='+command.id+'&cmdstatus='+status)
+            this.$http.get(this.server + '/?cmdid='+command.id+'&cmdstatus='+status)
                 .then(function (response) {
                     console.log('SET CMD STATUS:', response.data);
                 });

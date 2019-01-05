@@ -1,6 +1,7 @@
 new Vue({
     el: '#vue-app-remote',
     data: {
+        server: 'http://192.168.1.30'
     },
 
     created: function () {
@@ -51,7 +52,7 @@ new Vue({
         },
 
         addCommand: function (cmdString) {
-            this.$http.get('http://192.168.1.30/?cmdadd='+cmdString)
+            this.$http.get(this.server + '/?cmdadd='+cmdString)
                 .then(function (response) {
                     console.log('SET CMD STATUS:', response.data);
                 });
