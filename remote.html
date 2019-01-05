@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="Hazrat Ali" content="A PHP , VUE application">
+        <link rel="icon" href="/app/assets/img/favicon.png">
+
+        <title>Player Electron</title>
+
+         <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css">
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="app/assets/css/style5.css">
+        <!-- JQuery -->
+        <script src="./app/assets/js/jquery.js"></script>
+        <!-- Vue -->
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+        <style>
+            .channelBar {
+                position: absolute;
+                width: 98%;
+                opacity: 0.7;
+                margin: 0;
+                z-index: 100;
+                height: 120px;
+            }
+            .channelBar button {
+                border-radius: 0;
+                padding: 2rem 2rem;
+            }
+            #buttonsRow {
+                display: none;
+            }
+            button {
+                border-radius: 0 !important;
+                padding: 2rem 2rem !important;
+            }
+            td {
+                border: none !important;
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="container-fluid" id="vue-app-remote">
+        <div class="line" style="clear: both"></div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-dark">
+                    <tr>
+                        <td><button v-on:click="mute" class="btn btn-warning btn-block">Mute +</button></td>
+                        <td></td>
+                        <td><button v-on:click="unmute" class="btn btn-warning btn-block">Mute -</button></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><button v-on:click="volumeUp" class="btn btn-success btn-block">V +</button></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td><button v-on:click="pre" class="btn btn-info btn-block">CH -</button></td>
+                        <td></td>
+                        <td><button v-on:click="next" class="btn btn-info btn-block">CH +</button></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><button v-on:click="volumeDown" class="btn btn-success btn-block">V -</button></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td><button v-on:click="mute" class="btn btn-danger btn-block">Mute +</button></td>
+                        <td></td>
+                        <td><button v-on:click="unmute" class="btn btn-danger btn-block">Mute -</button></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="line" style="clear: both"></div>
+
+    </div>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- HLS Video Library-->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Vue code -->
+    <script src="app/assets/js/remote.js"></script>
+    </body>
+</html>

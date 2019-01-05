@@ -43,13 +43,9 @@
         <div class="line" style="clear: both"></div>
 
         <div class="row">
-            <div v-for="channel in channels">
-                <a v-bind:href="'vidvue.html?id='+channel.id"  class="card" style="width: 18rem;">
-                    <img class="card-img-top" v-bind:src="channel.icon" alt="Channel image">
-                    <div class="card-body">
-                        <p class="card-text">{{channel.name}}</p>
-                        <p>Channel ID: {{channel.id}}</p>
-                    </div>
+            <div v-for="channel in channels" class="col-sm-4">
+                <a v-bind:href="'vidvue.html?id='+channel.id">
+                    <img style="border-radius: 50%; height: 300px" v-bind:src="channel.icon" alt="Channel image">
                 </a>
             </div>
         </div>
