@@ -22,7 +22,7 @@
         <style>
             .channelBar {
                 position: absolute;
-                width: 100%;
+                width: 98%;
                 opacity: 0.7;
                 margin: 0;
                 z-index: 100;
@@ -51,7 +51,6 @@
                 <div class="col-sm"><button type="button" id="fourthRight" class="btn btn-info btn-block"> Fourth Right</button></div>
                 <div class="col-sm"><button type="button" id="maxVideo" class="btn btn-info btn-block"> Max Video</button></div>
             </div>
-            <div style="clear: both"></div>
         </div>
 
     </div>
@@ -59,7 +58,6 @@
     <div class="container-fluid" id="container">
         <div id="videoRow">
             <video id="video" autoplay style="width: 100%" controls></video>
-            <div class="line"></div>
         </div>
     </div>
 
@@ -140,6 +138,7 @@
              $('#videoRow').css("margin", "0");
              var vid = $('#video');
              vid.css("width", "100%");
+             vid.css("height", "90%");
          });
      });
     </script>

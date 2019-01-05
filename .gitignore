@@ -1,2 +1,7 @@
 .idea/
 node_modules/
+vendor/
+*.xml
+log.txt
+error.log
+*.log

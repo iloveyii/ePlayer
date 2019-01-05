@@ -1,0 +1,20 @@
+{
+    "name": "alex/php-coding-test",
+    "description": "Check website status",
+    "authors": [
+        {
+            "name": "Hazrat Ali",
+            "email": "iloveyii@yahoo.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\Models\\":"models/",
+            "App\\Interfaces\\":"interfaces/",
+            "Rhumsaa\\Uuid\\":"lib/uuid-1.0.0/src/Rhumsaa/Uuid/"
+        },
+        "classmap": [
+        ]
+    },
+    "require": {}
+}
