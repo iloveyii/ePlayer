@@ -29,7 +29,7 @@ new Vue({
                     console.log('COMMAND:', this.commands);
                     this.executeCommands(this.commands);
                 });
-        }, 4000);
+        }, 2000);
     },
 
     methods: {

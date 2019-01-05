@@ -89,9 +89,24 @@
                     </tr>
 
                     <tr>
-                        <td><button v-on:click="mute" class="btn btn-danger btn-block">Mute +</button></td>
-                        <td></td>
-                        <td><button v-on:click="unmute" class="btn btn-danger btn-block">Mute -</button></td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm"><button v-on:click="mute" class="btn btn-danger btn-block">Cancel sleep</button></div>
+                                <div class="col-sm"><button v-on:click="mute" class="btn btn-danger btn-block">Sleep 30</button></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm"><button v-on:click="mute" class="btn btn-danger btn-block">Sleep 1hr</button></div>
+                                <div class="col-sm"><button v-on:click="mute" class="btn btn-danger btn-block">Sleep 2hr</button></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm"><button v-on:click="mute" class="btn btn-danger btn-block">Sleep 3hr</button></div>
+                                <div class="col-sm"><button v-on:click="mute" class="btn btn-danger btn-block">Sleep 4hr</button></div>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>
