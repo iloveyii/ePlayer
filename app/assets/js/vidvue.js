@@ -79,7 +79,7 @@ new Vue({
             }
             let channel = this.channels[nextChannelId];
             this.playingUrlId = nextChannelId;
-            this.play(channel.url);
+            this.play(channel.url, channel.poster);
             return true;
         },
         pre: function(command) {
@@ -94,7 +94,27 @@ new Vue({
             }
             let channel = this.channels[nextChannelId];
             this.playingUrlId = nextChannelId;
-            this.play(channel.url);
+            this.play(channel.url, channel.poster);
+            return true;
+        },
+        volume: function(command) {
+            let arr = command.cmd.split(' ');
+            let increment = Number(arr[1]);
+            let video = document.getElementById('video');
+            let volume = video.volume + (increment * 0.1);
+            volume = Number(volume.toFixed(1));
+            console.log('I am setting volume to : '+ volume, command);
+            if(volume > 1) {
+                video.volume = 1;
+                return true;
+            }
+            if(volume < 0) {
+                video.volume = 0;
+                return true;
+            }
+
+            console.log('Final volume is: ' + volume);
+            video.volume = volume;
             return true;
         },
         executeCommands: function (commands) {
@@ -110,6 +130,13 @@ new Vue({
 
                 if(command.cmd.includes('PRE')) {
                     let status = app.pre(command);
+                    if(status === true) {
+                        app.setCommandStatus(command, 0);
+                    }
+                }
+
+                if(command.cmd.includes('VOL')) {
+                    let status = app.volume(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }

@@ -3,13 +3,15 @@
 require_once "./config/app.php";
 require_once "./vendor/autoload.php";
 
-use App\Models\Database;
 use App\Models\Log;
 use App\Models\Channel;
 
 // Make log file error.log clear
 Log::clear();
 
+/**
+ * Create channel table and insert sample data
+ */
 $channel = new Channel();
 $channel->dropTable();
 $channel->createTable();
@@ -27,9 +29,9 @@ foreach ($data as $record) {
     $channel->setAttributes($record)->create();
 }
 
-
-
-
+/**
+ * Create command table and insert sample data
+ */
 $command = new \App\Models\Command();
 $command->dropTable();
 $command->createTable();
