@@ -27,3 +27,20 @@ $data = [
 foreach ($data as $record) {
     $channel->setAttributes($record)->create();
 }
+
+
+
+
+$command = new \App\Models\Command();
+$command->dropTable();
+$command->createTable();
+
+// Insert data
+$data = [
+    ['cmd'=> 'NEXT 1', 'status'=>1],
+    ['cmd'=> 'NEXT 1', 'status'=>1],
+    ['cmd'=> 'PRE 1', 'status'=>1],
+];
+foreach ($data as $record) {
+    $command->setAttributes($record)->create();
+}

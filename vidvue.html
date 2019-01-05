@@ -45,7 +45,7 @@
         <div id="vue-app" class="channelBar" onmouseover="document.getElementById('buttonsRow').style.display='-webkit-box'" onmouseleave="document.getElementById('buttonsRow').style.display='none'">
             <div class="row" id="buttonsRow">
                 <div v-for="channel in channels" class="col-sm">
-                    <button v-bind:data-target="channel.url" onclick="loadVideo(this, 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8')" type="button" v-bind:class="channel.htmlClass"> {{channel.name}}</button>
+                    <button v-bind:data-target="channel.url" v-on:click="startVideo" type="button" v-bind:class="channel.htmlClass"> {{channel.name}}</button>
                 </div>
             </div>
         </div>
@@ -64,55 +64,9 @@
     <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript">
-        function loadVideo(e, filePath) {
-            var filePath = $(e).data('target');
-            let video = document.getElementById('video');
-            if(Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(filePath);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                    video.play();
-                });
-            }
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
-                video.addEventListener('loadedmetadata',function() {
-                    video.play();
-                });
-            }
-        }
-
-     $(document).ready(function () {
-         $('#fourthLeft').on('click', function (e) {
-             window.resizeTo(screen.width/2, screen.height/2);
-             window.moveTo(0, 0);
-         });
-
-         $('#fourthRight').on('click', function (e) {
-             // window.resizeTo(screen.width/2, screen.height/2);
-             window.moveBy(50 , 10);
-         });
-
-         $('#maxVideo').on('click', function (e) {
-             $('#container').css("width", "100%");
-             $('#container').css("padding", "0");
-             $('#videoRow').css("padding", "0");
-             $('#container').css("margin", "0");
-             $('#videoRow').css("margin", "0");
-             var vid = $('#video');
-             vid.css("width", "100%");
-             vid.css("height", "90%");
-         });
-     });
-    </script>
-
+    <!-- HLS Video Library-->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-
-    </script>
+    <!-- Vue code -->
     <script src="app/assets/js/vidvue.js"></script>
     </body>
 </html>
