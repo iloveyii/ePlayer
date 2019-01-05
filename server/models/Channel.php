@@ -11,6 +11,7 @@ class Channel extends Model
     public $id;
     public $category_id;
     public $name;
+    public $icon;
     public $url;
 
     /**
@@ -50,6 +51,7 @@ class Channel extends Model
         return [
             'id' => ['integer'],
             'name' => ['string', 'minLength'=>5, 'maxLength'=>40],
+            'icon' => ['string', 'minLength'=>5, 'maxLength'=>200],
             'url' => ['string', 'minLength'=>5, 'maxLength'=>200],
         ];
     }
@@ -62,6 +64,7 @@ class Channel extends Model
         id INT( 11 ) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         category_id INT( 11 ) UNSIGNED,
         name varchar( 40 ),
+        icon varchar( 200 ),
         url varchar( 200 ),
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
         );";

@@ -11,7 +11,7 @@ Log::clear();
 
 $sql = sprintf("SELECT * FROM channel");
 
-if(isset($_GET['data']) && ($_GET['data'] == 'channels')) {
+if(isset($_GET['data']) && ($_GET['data'] == 'channel')) {
     $rows = Database::connect()->selectAll($sql);
     echo json_encode($rows);
     exit;
