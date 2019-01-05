@@ -30,9 +30,9 @@ if(isset($_GET['data']) && ($_GET['data'] == 'command')) {
 }
 
 
-if(isset($_GET['command'])) {
-    $id = $_GET['command'];
-    $status = $_GET['status'];
+if(isset($_GET['cmdstatus'])) {
+    $id = $_GET['cmdid'];
+    $status = $_GET['cmdstatus'];
 
     $attributes = [
         'id' => $id,
@@ -40,6 +40,23 @@ if(isset($_GET['command'])) {
     ];
     $command = new \App\Models\Command();
     $result = $command->setAttributes($attributes)->setStatus();
+    echo json_encode($result);
+    exit;
+}
+
+
+if(isset($_GET['cmdadd'])) {
+    $cmd = $_GET['cmdadd'];
+
+    $attributes = [
+        'cmd' => $cmd,
+        'status' => 1
+    ];
+    $command = new \App\Models\Command();
+    $result['status'] = $command->setAttributes($attributes)->create();
+
+    $result['cmd'] = $cmd;
+    $result['obj'] = print_r($command, 1);
     echo json_encode($result);
     exit;
 }

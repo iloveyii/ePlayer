@@ -38,9 +38,10 @@ new Vue({
                 return vars['site'] ? vars['site'] : false;
         },
 
-        play : function(url) {
+        play : function(url, posterUrl) {
             console.log('I am playing a url ' + url);
             let video = document.getElementById('video');
+            video.setAttribute('poster', posterUrl);
             if(Hls.isSupported()) {
                 var hls = new Hls();
                 hls.loadSource(url);
@@ -60,8 +61,12 @@ new Vue({
         startVideo: function (e) {
             console.log('I am starting a video' + $(e.target).data('target'));
             var url = $(e.target).data('target');
-            this.playingUrlId = this.channels.findIndex(function(ch) {return ch.url === url});
-            this.play(url);
+            var channel = this.channels.find(function(ch) {return ch.url === url});
+            if(channel !== undefined) {
+                this.playingUrlId = channel.id;
+                this.play(channel.url, channel.poster);
+            }
+
         },
         next : function (command) {
             let arr = command.cmd.split(' ');
@@ -112,7 +117,7 @@ new Vue({
             })
         },
         setCommandStatus: function (command, status) {
-            this.$http.get('http://localhost:8181/?command='+command.id+'&status='+status)
+            this.$http.get('http://localhost:8181/?cmdid='+command.id+'&cmdstatus='+status)
                 .then(function (response) {
                     console.log('SET CMD STATUS:', response.data);
                 });
