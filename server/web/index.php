@@ -5,6 +5,7 @@ require_once "../vendor/autoload.php";
 
 use App\Models\Database;
 use App\Models\Log;
+use App\Models\Command;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -38,7 +39,7 @@ if(isset($_GET['cmdstatus'])) {
         'id' => $id,
         'status' => $status
     ];
-    $command = new \App\Models\Command();
+    $command = new Command();
     $result = $command->setAttributes($attributes)->setStatus();
     echo json_encode($result);
     exit;
@@ -52,7 +53,7 @@ if(isset($_GET['cmdadd'])) {
         'cmd' => $cmd,
         'status' => 1
     ];
-    $command = new \App\Models\Command();
+    $command = new Command();
     $result['status'] = $command->setAttributes($attributes)->create();
 
     $result['cmd'] = $cmd;

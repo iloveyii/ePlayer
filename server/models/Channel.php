@@ -39,6 +39,7 @@ class Channel extends Model
         $this->id = isset($attributes['id'])  ? $attributes['id'] : null;
         $this->category_id = isset($attributes['category_id']) ? $attributes['category_id'] : null;
         $this->name = $attributes['name'];
+        $this->icon = $attributes['icon'];
         $this->url = $attributes['url'];
         $this->poster = $attributes['poster'];
         $this->htmlClass = $attributes['htmlClass'];
@@ -89,11 +90,11 @@ class Channel extends Model
      */
     public function create()
     {
-        $query = sprintf("INSERT INTO %s (category_id, name, url, poster, htmlClass) 
-                                 VALUES (null, :name, :url, :poster, :htmlClass)
-                                 ON DUPLICATE KEY UPDATE name=:name, url=:url, poster=:poster
+        $query = sprintf("INSERT INTO %s (category_id, name, icon, url, poster, htmlClass) 
+                                 VALUES (null, :name, :icon, :url, :poster, :htmlClass)
+                                 ON DUPLICATE KEY UPDATE name=:name, url=:url, poster=:poster, icon=:icon
                                  ", $this->tableName);
-        $params = [':name'=>$this->name, ':url'=>$this->url, ':poster'=>$this->poster, ':htmlClass'=>$this->htmlClass];
+        $params = [':name'=>$this->name, ':url'=>$this->url, ':poster'=>$this->poster, ':htmlClass'=>$this->htmlClass, ':icon'=>$this->icon];
         return Database::connect()->insert($query, $params);
     }
 

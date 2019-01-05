@@ -1,8 +1,6 @@
 new Vue({
     el: '#vue-app',
     data: {
-        name: 'Alex',
-        users: {},
         channels: [],
         commands: {},
         playingUrlId: 0
@@ -14,8 +12,11 @@ new Vue({
         this.$http.get('http://localhost:8181/?data=channel')
             .then(function (response) {
                 this.channels = response.data;
-                console.log('CHANNELS:', this.channels);
-                window.channels = this.channels;
+                let id = this.getId();
+                if( ! isNaN(id)) {
+                    let currentChannel = this.channels[id - 1];
+                    this.play(currentChannel.url, currentChannel.poster);
+                }
             });
 
         setInterval(function () {
@@ -30,12 +31,12 @@ new Vue({
     },
 
     methods: {
-        getSiteId : function () {
+        getId : function () {
                 var vars = {};
                 var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
                     vars[key] = value;
                 });
-                return vars['site'] ? vars['site'] : false;
+                return vars['id'] ? vars['id'] : false;
         },
 
         play : function(url, posterUrl) {
@@ -117,6 +118,15 @@ new Vue({
             video.volume = volume;
             return true;
         },
+        mute: function(command) {
+            let arr = command.cmd.split(' ');
+            let increment = Number(arr[1]);
+            let video = document.getElementById('video');
+            video.muted = increment;
+            video.play();
+            return true;
+        },
+
         executeCommands: function (commands) {
             var app = this;
             console.log('I am executing commands: ' , commands);
@@ -137,6 +147,13 @@ new Vue({
 
                 if(command.cmd.includes('VOL')) {
                     let status = app.volume(command);
+                    if(status === true) {
+                        app.setCommandStatus(command, 0);
+                    }
+                }
+
+                if(command.cmd.includes('MUT')) {
+                    let status = app.mute(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }
