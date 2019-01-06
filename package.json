@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "build"
+    "dist": "build --win"
   },
   "build": {
     "appId": "se.softhem.jplayer",
@@ -14,6 +14,10 @@
         "AppImage",
         "deb"
       ]
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
     }
   },
   "keywords": [
@@ -22,16 +26,16 @@
     "Electron"
   ],
   "author": {
-    "name" : "Hazrat Ali",
+    "name": "Hazrat Ali",
     "email": "iloveyii@yahoo.com",
     "url": "https://bitbucket.org/iloveyii"
   },
   "homepage": "https://bitbucket.org/iloveyii/eleplayer",
   "license": "ISC",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "electron": "^4.0.0",
-    "electron-builder": "^20.38.4"
+    "electron-builder": "^20.38.4",
+    "electron-builder-squirrel-windows": "^20.38.3"
   }
 }

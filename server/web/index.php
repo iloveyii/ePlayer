@@ -66,3 +66,28 @@ if(isset($_GET['cmdadd'])) {
 }
 
 
+// Add new channel
+
+if(isset($_GET['name'])) {
+    $buttons = ['default', 'info', 'warning', 'danger', 'success'];
+    $attributes = [
+        'name' => $_GET['name'],
+        'icon' => $_GET['icon'],
+        'url' => $_GET['url'],
+        'poster' => $_GET['poster'],
+        'htmlClass' => 'btn btn-block btn-' . $buttons[rand(0, count($buttons) - 1)]
+    ];
+    Log::write('Adding channel with data ' . print_r($attributes, true), Log::INFO);
+
+    $channel = new \App\Models\Channel();
+    $result['status'] = $channel->setAttributes($attributes)->validate();
+    if($result['status'] === true) {
+        $channel->create();
+    } else {
+        $result['errors'] = $channel->getErrors();
+    }
+
+    echo json_encode($result);
+    exit;
+}
+

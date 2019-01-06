@@ -55,10 +55,11 @@ class Channel extends Model
     {
         return [
             'id' => ['integer'],
-            'name' => ['string', 'minLength'=>5, 'maxLength'=>40],
+            'name' => ['string', 'minLength'=>2, 'maxLength'=>40],
             'icon' => ['string', 'minLength'=>5, 'maxLength'=>200],
             'url' => ['string', 'minLength'=>5, 'maxLength'=>200],
             'poster' => ['string', 'minLength'=>5, 'maxLength'=>200],
+            'htmlClass' => ['string', 'minLength'=>1, 'maxLength'=>80],
         ];
     }
 

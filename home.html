@@ -52,6 +52,38 @@
 
     </div>
 
+    <div class="container-fluid" id="vue-app-form">
+        <div class="line" style="clear: both"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="input" v-model="form.name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name">
+                        <small id="nameHelp" class="form-text text-muted">Provide name for the channel.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="icon">Icon</label>
+                        <input type="input" v-model="form.icon" class="form-control" id="icon" aria-describedby="iconHelp" placeholder="Enter icon url">
+                        <small id="iconHelp" class="form-text text-muted">Provide url of the channel icon.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="icon">M3u8</label>
+                        <input type="input" v-model="form.url" class="form-control" id="url" aria-describedby="urlHelp" placeholder="Enter m3u8 file url">
+                        <small id="urlHelp" class="form-text text-muted">Provide url of the m3u8 file.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="poster">Poster</label>
+                        <input type="input" v-model="form.poster" class="form-control" id="poster" aria-describedby="posterHelp" placeholder="Enter poster url">
+                        <small id="posterHelp" class="form-text text-muted">Provide url of poster.</small>
+                    </div>
+
+                    <button type="submit" v-on:click="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -61,5 +93,6 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <!-- Vue code -->
     <script src="app/assets/js/vidvue.js"></script>
+    <script src="app/assets/js/form.js"></script>
     </body>
 </html>
