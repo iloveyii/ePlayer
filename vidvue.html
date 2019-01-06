@@ -37,30 +37,31 @@
             }
         </style>
     </head>
-    <body>
+    <body >
 
 
-    <div class="container-fluid">
+        <div class="container-fluid" id="vue-app">
 
-        <div id="vue-app" class="channelBar" onmouseover="document.getElementById('buttonsRow').style.display='-webkit-box'" onmouseleave="document.getElementById('buttonsRow').style.display='none'">
-            <div class="row" id="buttonsRow">
-                <div v-for="channel in channels" class="col-sm">
-                    <button v-bind:data-target="channel.url" v-on:click="startVideo" type="button" v-bind:class="channel.htmlClass"> {{channel.name}}</button>
+            <div class="channelBar" onmouseover="document.getElementById('buttonsRow').style.display='-webkit-box'" onmouseleave="document.getElementById('buttonsRow').style.display='none'">
+                <div class="row" id="buttonsRow">
+                    <div v-for="channel in channels" class="col-sm">
+                        <button v-bind:data-target="channel.url" v-on:click="startVideo" type="button" v-bind:class="channel.htmlClass"> {{channel.name}}</button>
+                    </div>
                 </div>
+            </div>
+            <span v-if="timer.duration !== null">Timer : {{elapsedTime()}}</span>
+        </div>
+
+        <div class="container-fluid" id="container">
+            <div id="videoRow">
+                <video id="video" muted="muted" --autoplay-policy=no-user-gesture-required autoplay="true" style="width: 100%" controls preload="metadata" poster="http://www.journalismpakistan.com/news/92%20News%20Media%20Group%20prepapres%20to%20launch%20newspapers.jpg"></video>
             </div>
         </div>
 
-    </div>
+        <div class="container-fluid">
+            <a class="btn btn-default" href="home.html">Home</a>
 
-    <div class="container-fluid" id="container">
-        <div id="videoRow">
-            <video id="video" muted="muted" --autoplay-policy=no-user-gesture-required autoplay="true" style="width: 100%" controls preload="metadata" poster="http://www.journalismpakistan.com/news/92%20News%20Media%20Group%20prepapres%20to%20launch%20newspapers.jpg"></video>
         </div>
-    </div>
-
-    <div class="container-fluid">
-        <a class="btn btn-default" href="home.html">Home</a>
-    </div>
 
 
     <!-- jQuery CDN -->

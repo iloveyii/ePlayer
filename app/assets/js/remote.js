@@ -50,6 +50,12 @@ new Vue({
             this.addCommand(cmdString);
             return true;
         },
+        sleep: function(time) {
+            let cmdString = "SLP " + time;
+            console.log('Sleeing in ' + cmdString);
+            this.addCommand(cmdString);
+            return true;
+        },
 
         addCommand: function (cmdString) {
             this.$http.get(this.server + '/?cmdadd='+cmdString)

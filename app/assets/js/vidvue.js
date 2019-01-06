@@ -4,7 +4,13 @@ new Vue({
         channels: [],
         commands: {},
         playingUrlId: 0,
-        server: 'http://192.168.1.30'
+        server: 'http://192.168.1.30',
+        timer: {
+            id : null,
+            duration: null,
+            elapsed: null,
+            tHandle: null
+        }
     },
 
     created: function () {
@@ -128,6 +134,39 @@ new Vue({
             video.play();
             return true;
         },
+        startTimer: function(command) {
+            let arr = command.cmd.split(' ');
+            let duration = Number(arr[1]);
+            let id = command.id;
+            this.timer = {
+                id : id,
+                duration: duration,
+                elapsed: duration * 60
+            };
+            var app = this;
+            clearInterval(app.timer.tHandle);
+            this.timer.tHandle = setInterval(function () {
+                app.timer.elapsed = app.timer.elapsed - 1;
+            }, 1000);
+            return true;
+        },
+
+        elapsedTime() {
+            let elapsed = this.timer.elapsed;
+            if(elapsed <= 0) {
+                clearInterval(this.timer.tHandle);
+                let video = document.getElementById('video');
+                video.pause();
+                return 'Slept';
+            }
+            let hr = Math.floor(elapsed/(60 * 60));
+            let min = Math.floor( (elapsed % (60 * 60)) / 60);
+            let sec = (elapsed % (60 * 60)) % 60;
+            hr = hr < 10 ? '0' + hr : hr;
+            min = min < 10 ? '0' + min : min;
+            sec = sec < 10 ? '0' + sec : sec;
+            return `${hr}:${min}:${sec}`;
+        },
 
         executeCommands: function (commands) {
             var app = this;
@@ -156,6 +195,13 @@ new Vue({
 
                 if(command.cmd.includes('MUT')) {
                     let status = app.mute(command);
+                    if(status === true) {
+                        app.setCommandStatus(command, 0);
+                    }
+                }
+
+                if(command.cmd.includes('SLP')) {
+                    let status = app.startTimer(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }
