@@ -4,16 +4,34 @@
   "description": "A simple electron application - video player",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "se.softhem.jplayer",
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
   },
   "keywords": [
     "JS",
     "Node",
     "Electron"
   ],
-  "author": "Hazrat Ali",
+  "author": {
+    "name" : "Hazrat Ali",
+    "email": "iloveyii@yahoo.com",
+    "url": "https://bitbucket.org/iloveyii"
+  },
+  "homepage": "https://bitbucket.org/iloveyii/eleplayer",
   "license": "ISC",
   "dependencies": {
-    "electron": "^4.0.0"
+  },
+  "devDependencies": {
+    "electron": "^4.0.0",
+    "electron-builder": "^20.38.4"
   }
 }

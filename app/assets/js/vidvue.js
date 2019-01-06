@@ -7,7 +7,7 @@ new Vue({
         server: 'http://192.168.1.30',
         timer: {
             id : null,
-            duration: null,
+            duration: 0,
             elapsed: null,
             tHandle: null
         }
@@ -153,9 +153,10 @@ new Vue({
 
         elapsedTime() {
             let elapsed = this.timer.elapsed;
-            if(elapsed <= 0) {
+            if(elapsed <= 0 && this.timer.duration > 0) {
                 clearInterval(this.timer.tHandle);
                 let video = document.getElementById('video');
+                this.timer.duration = 0;
                 video.pause();
                 return 'Slept';
             }
