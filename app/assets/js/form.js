@@ -7,7 +7,7 @@ new Vue({
             url: '',
             poster: ''
         },
-        server: 'http://192.168.1.30',
+        server: 'http://eplayer.softhem.se',
     },
 
     created: function () {

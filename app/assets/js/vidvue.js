@@ -4,7 +4,7 @@ new Vue({
         channels: [],
         commands: {},
         playingUrlId: 0,
-        server: 'http://192.168.1.30',
+        server: 'http://eplayer.softhem.se',
         timer: {
             id : null,
             duration: 0,
