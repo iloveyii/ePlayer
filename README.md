@@ -1,69 +1,35 @@
 ePlayer
 =======
-ePlayer is m4u8 player application developed in Javascript and Electron. This player enables users to add their own favourite free/paid streaming server m3u8 of their favourite live channels.
+ePlayer is m4u8 player application developed in Javascript, Vue and Electron. This player enables users to add their own favourite free/paid streaming server m3u8 of their favourite live channels.
 
-There is a free web based remote which helps in controlling the ePlayer. You can download the Ubuntu installer or install it locally using the installation instructions given below.
+There is a free web based remote which helps in controlling the ePlayer. You can download the Ubuntu [installer](http://eplayer.softhem.se/dist/linux/jsplayer.AppImage) and use the online remote control [here](http://eplayer.softhem.se/remote.html). You can also install it locally using the installation instructions given below.
 
-![ePlayer screen shot]()
-## What has been done
-   * We have developed a backend application in PHP which serves the API requests. We have used a small PHP MVC framework
-     called [Alip](http://github.com/iloveyii/alip).  
-   * We have used MySQL database which imports the events in the given json file to the event table in the database. 
-     The database also stores info about user login and their polling in related tables. We have used two views in the
-     database to help simplify the task.
-   * We have written a small PHP script init.php which does all the necessary tasks like importing json file and creating
-     required tables in database.
-   * We have developed required web pages using html 5 and CSS 3 for user login, user sign up and polling on the events.
+![ePlayer screen shot](http://eplayer.softhem.se/img/eplayer.png)
+
+## How it works
+   * We have developed a backend application in PHP which serves the API requests.  
+   * We have used MySQL database which saves the remote control commands and channels list of the user. 
+   * When the user clicks any button on the remote control (web based) sends the command (e.g change channel) to the server which is stored in the MySQL database. The ePlayer continuously reads commands from the server and executes it.
    
 ## Development tools
-   * We used PHPStorm IDE, git, bitbucket, composer, PHP 7.2, Ubuntu and Apache2 for development environment.
-   * Fetching random category (sport) for which user has not polled before was a challenge. We created two views to 
-     simplify this task. View category has the list of all (distinct) sports in the json file ( ie event table ). 
-     If a new sport is added or json file with other sports is provided the view has the dynamic nature to get all of 
-     them. We can easily fetch any dynamic sport from this View using simple SQL but how to make sure that the user has
-     not already polled on it. We need inner joins with the table vote, but to simplify it further we have created a 
-     View called user_voted_sport which shows the sport for which the user has already voted. So using these two views
-     we can easily determine the solution of the challenge.
+   * We used PhpStorm IDE, Git, Composer, PHP 7.2, Node, Ubuntu and Apache2 for development environment.
+   * On programming side we used Javascript, Vue, Php, Mysql.
      
 ## Setup and first run
 
-  * Clone the repository `git clone git@bitbucket.org:iloveyii/sports-poll.git`.
-  * Run composer install `composer install`.
-  * Then run composer command `composer dump-autoload`.
+  * Clone the repository `git clone git@github.com:iloveyii/ePlayer.git`.
+  * Run npm install in the root directory `npm install`.
+  * Run npm script to see player window in the root directory `npm start`.
+  * Make a virtual host ( you may use [vh](https://github.com/iloveyii/vh)) pointing to server/web OR cd to server/web directory and run `php -S localhost:8080`.
   * Create a database (manually for now) and adjust the database credentials in the `config/app.php` file as per your environment.
-  * Run the init command to create the database table as `php init.php`.
-  * Point web browser to backend/src/web directory or Create a virtual host using [vh](https://github.com/iloveyii/vh) `vh new sportspoll -p ~/sportspoll/backend/src/web`
-  * Browse to [http://sportspoll.loc](http://sportspoll.loc) (default: username: admin, password: admin).
+  * Run composer the server directory `composer dump-autoload`.
+  * Run (inside directory : server/) the init command to create the database tables as `php init.php`.
+  * Browse to [http://localhost:8080/remote.html](http://localhost:8080/remote.html) to see remote control.
+  * Browse to [http://localhost:8080/?data=channel](http://localhost:8080/?data=channel) to see data about channels.
   
 For more information about using Composer please see its [documentation](http://getcomposer.org/doc/).
 
-## How to use the framework
-
-This framework is very easy to be used. You can create an object of the router by passing a request object to it as shown below.
-
-```
-// index.php
-require_once 'vendor/autoload.php';
-require_once 'config/app.php';
-
-use App\Models\Router;
-use App\Models\Request;
-
-/**
- * First create router object with params Request object and default route
- */
-$router = new Router(new Request, '/posts/index');
-
-/**
- * Next declare the http methods
- */
-$router->get('/posts/index', function ($request) {
-    $controller = new \App\Controllers\PostController($request);
-    $controller->index();
-});
-```
-
-DEMO is here [DEMO](http://sportspoll.softhem.se).
+DEMO is here [DEMO](http://eplayer.softhem.se/remote.html).
 
 ## Overall Structure
 
@@ -71,27 +37,18 @@ Bellow the directory structure used:
 
 ```
 
-   |-backend
-   |--src
-   |---config
-   |----app.php
-   |---controllers
-   |---models
-   |----Database.php
-   |----User.php
-   |----Event.php
-   |----Vote.php
-   |----Winner.php
-   |----Request.php
-   |----Router.php
-   |---views
-   |----event
-   |----user
-   |---web
-   |----index.php
-   |----assets
-   |-frontend
-   |--src
+   |-app
+   |--assets
+   |---css
+   |---img
+   |---js
+   |-main.js
+   |-server
+   |--config
+   |--models
+   |--web
+   |--composer.json
+   |--init.php
    
 ```
 
@@ -104,9 +61,9 @@ Bellow the directory structure used:
    * PHP 7.2
    * Apache 2
    * MySql 5.6
+   * Node 11.6.0
+   * Electron 4.0.0
    
-## Testing
-  * To run the php unit tests, inside backend/src run `phpunit ` .
   
-<i>Web development has never been so fun.</i>  
-[Hazrat Ali](http://blog.softhem.se/) 
+ <i>Web streaming is fun.</i>  
+ [Hazrat Ali](http://blog.softhem.se/) 
