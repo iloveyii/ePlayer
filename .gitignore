@@ -5,4 +5,5 @@ vendor/
 log.txt
 error.log
 *.log
+
 dist/
