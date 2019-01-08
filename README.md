@@ -6,6 +6,9 @@ There is a free web based remote which helps in controlling the ePlayer. You can
 
 ![ePlayer screen shot](http://eplayer.softhem.se/img/eplayer.png)
 
+* [Demo Player](http://eplayer.softhem.se/vidvue.html)
+* [Demo Remote](http://eplayer.softhem.se/remote.html)
+
 ## How it works
    * We have developed a backend application in PHP which serves the API requests.  
    * We have used MySQL database which saves the remote control commands and channels list of the user. 
