@@ -1,7 +1,7 @@
 new Vue({
     el: '#vue-app-remote',
     data: {
-        server: 'http://eplayer.softhem.se'
+        server: 'http://localhost:8080'
     },
 
     created: function () {
@@ -19,7 +19,7 @@ new Vue({
 
 
         next : function () {
-            let cmdString = "NEXT 1";
+            let cmdString = "-1";
             this.addCommand(cmdString);
             return true;
         },

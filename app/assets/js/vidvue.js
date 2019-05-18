@@ -1,10 +1,10 @@
-new Vue({
+window.v = new Vue({
     el: '#vue-app',
     data: {
         channels: [],
         commands: {},
         playingUrlId: 0,
-        server: 'http://eplayer.softhem.se',
+        server: 'http://localhost:8080',
         timer: {
             id : null,
             duration: 0,
@@ -23,7 +23,7 @@ new Vue({
                 let id = this.getId();
                 if( ! isNaN(id)) {
                     let currentChannel = this.channels[id - 1];
-                    this.play(currentChannel.url, currentChannel.poster);
+                    currentChannel && this.play(currentChannel.url, currentChannel.poster);
                 }
             });
 
@@ -32,10 +32,16 @@ new Vue({
             api.get(app.server + '?data=command')
                 .then(function (response) {
                     this.commands = response.data;
-                    console.log('COMMAND:', this.commands);
+
+                    console.log('COMMAND:', this.commands, typeof (response.data));
                     this.executeCommands(this.commands);
-                });
-        }, 2000);
+                    return response.data;
+                }).then(function(data) {
+                    console.log('Data', data);
+                }
+
+            );
+        }, 5000);
     },
 
     methods: {
@@ -65,6 +71,7 @@ new Vue({
                     video.play();
                 });
             }
+            return true;
         },
 
         startVideo: function (e) {
@@ -173,36 +180,53 @@ new Vue({
             var app = this;
             console.log('I am executing commands: ' , commands);
             commands.forEach(function (command) {
-                if(command.cmd.includes('NEXT')) {
+                const commandArray = command.cmd.split(' ');
+                const commandString = commandArray[0];
+                console.log('Inside executecommands', commandString);
+
+                if(commandString.includes('NEXT')) {
                     let status = app.next(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }
                 }
 
-                if(command.cmd.includes('PRE')) {
+                if(commandString.includes('PRE')) {
                     let status = app.pre(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }
                 }
 
-                if(command.cmd.includes('VOL')) {
+                if(commandString.includes('VOL')) {
                     let status = app.volume(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }
                 }
 
-                if(command.cmd.includes('MUT')) {
+                if(commandString.includes('MUT')) {
                     let status = app.mute(command);
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }
                 }
 
-                if(command.cmd.includes('SLP')) {
+                if(commandString.includes('SLP')) {
                     let status = app.startTimer(command);
+                    if(status === true) {
+                        app.setCommandStatus(command, 0);
+                    }
+                }
+
+                if(commandString.includes('PLAY')) {
+                    let arr = command.cmd.split(' ');
+                    let url = arr[1];
+                    let posterUrl = arr[2];
+
+                    let status = app.play(url, posterUrl);
+                    console.log('PLAY Status', status);
+
                     if(status === true) {
                         app.setCommandStatus(command, 0);
                     }

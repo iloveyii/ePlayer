@@ -13,7 +13,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'tv');
 define('DB_USER', 'root');
-define('DB_PASS', 'root');
+define('DB_PASS', 'root1@3M');
 
 /**
  * Set log level here for Log class
